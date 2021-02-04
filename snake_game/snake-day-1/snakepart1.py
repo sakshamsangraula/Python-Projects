@@ -14,12 +14,20 @@ class Snake:
 
     def create_snake(self):
         # create segments as many as positions
-        for self.position in POSITIONS:
-            self.new_segment = Turtle(shape="square")
-            self.new_segment.color("white")
-            self.new_segment.penup()
-            self.new_segment.goto(self.position)
-            self.segments.append(self.new_segment)
+        for position in POSITIONS:
+            self.add_segments(position)
+
+
+    def add_segments(self, position):
+        self.new_segment = Turtle(shape="square")
+        self.new_segment.color("white")
+        self.new_segment.penup()
+        self.new_segment.goto(position)
+        self.segments.append(self.new_segment)
+
+    def extend(self):
+        # add a new last segment to the end of the snake
+        self.add_segments(self.segments[-1].position())
 
     def move(self):
         # make previous segment the current segment (so that when the snake turns, the shape is intact and
