@@ -13,11 +13,13 @@ screen.title("Saksham Snake Game")
 
 screen.tracer(0)
 
-snake = Snake()
-
 # listen for events after creating the snake
 
 screen.listen()
+
+snake = Snake()
+
+
 
 # make sure the snake turns to the appropriate direction based on the keyboard input
 screen.onkey(fun=snake.up, key="Up")
