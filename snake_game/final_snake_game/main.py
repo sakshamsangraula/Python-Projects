@@ -37,16 +37,18 @@ while is_game_on:
         food.random_move()
 
     # if the snake's head goes over the boundary then it's game over
-    # if snake.head.xcor() > 290 or snake.head.xcor() < -290 or snake.head.ycor() > 290 or snake.head.ycor() < -290:
-    #     is_game_on = False
-    #     score_board.game_over()
+    if snake.head.xcor() > 290 or snake.head.xcor() < -290 or snake.head.ycor() > 290 or snake.head.ycor() < -290:
+        is_game_on = False
+        score_board.game_over()
 
     # last check: if the snake's head collides with any of the snake segments (snake body) then it's game over
-    for segment in snake.segments:
-        if segment != snake.head:
-            if snake.head.distance(segment) < 10:
-                is_game_on = False
-                score_board.game_over()
+    # for _ in snake.segments:
+    # check the head with segment other than the first one
+    check_segments = snake.segments[1::]
+    for segment in check_segments:
+        if snake.head.distance(segment) < 10:
+            is_game_on = False
+            score_board.game_over()
 
 
 screen.exitonclick()
