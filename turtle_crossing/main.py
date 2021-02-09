@@ -27,7 +27,8 @@ car_manager = CarManager()
 score_board = ScoreBoard()
 
 while is_game_on:
-    time.sleep(score_board.time_speed)
+    # time.sleep(score_board.time_speed)
+    time.sleep(0.1)
     screen.update()
     car_manager.create_car()
     car_manager.move_car()
@@ -44,6 +45,7 @@ while is_game_on:
         # go back to the center
         player.restarting_position()
         score_board.level_up()
+        car_manager.increase_speed()
 
 
 screen.exitonclick()

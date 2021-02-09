@@ -8,25 +8,25 @@ class ScoreBoard(Turtle):
         super().__init__()
         self.hideturtle()
         self.level = 1
-        self.time_speed = 0.1
         self.update_level()
+        self.penup()
+
 
     def update_level(self):
         # clear previous entry
         self.clear()
-        self.penup()
         self.goto(-210, 220)
-        self.write(f"Level: {self.level}", align = "center", font=FONT)
+        self.write(f"Level: {self.level}", align="left", font=FONT)
 
     def level_up(self):
         self.level += 1
-        self.time_speed *= 0.5
         self.update_level()
-
 
     def game_over(self):
         self.goto(0,0)
         self.write("Game Over", align="center", font=FONT_BOLD)
+
+
 
 
 
