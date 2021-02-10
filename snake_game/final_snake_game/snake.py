@@ -44,6 +44,16 @@ class Snake(Turtle):
 
         self.head.forward(20)
 
+    def reset_snake(self):
+        # move the segments out of the screen and empty the segments
+        for seg in self.segments:
+            seg.goto(1000, 1000)
+        self.segments.clear()
+
+        # create a new snake
+        self.create_snake()
+        self.head = self.segments[0]
+
     # control the snake
     def up(self):
         if self.head.heading() != DOWN:
