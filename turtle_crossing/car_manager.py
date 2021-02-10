@@ -17,7 +17,7 @@ class CarManager(Turtle):
 
 
     def create_car(self):
-        # make sure that 1 in 7 cars are created each time the while room is ran in the main.py file
+        # make sure that 1 in 7 cars are created each time the while room is ran in the mail_merge_main.py file
         rand_num = random.randint(1, 7)
         if rand_num == 7:
             # car manager has cars just like snake has segments
