@@ -39,16 +39,8 @@ class StatesFunctionality(Turtle):
     def output_remaining_states(self):
         # output a text file that has all the states the user missed
         # loop through all the states and if they are not in the guessed states list then write it to a file
-        missing_states = []
-        for state in self.states:
-            if state not in self.guessed_states:
-            #     continue
-            #     # pass also works
-            # else:
-            #     # append each missed state to the file
-            #     with open("remaining_states_left.csv", mode="a") as file:
-            #         file.write(f"{state}\n")
-                missing_states.append(state)
+        missing_states = [ state for state in self.states if state not in self.guessed_states]
+
 
         # create a new dataframe and output to a file
         df = pandas.DataFrame(missing_states)
