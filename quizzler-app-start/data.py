@@ -2,7 +2,9 @@ import requests
 
 parameter = {
     "amount": 10,
-    "type": "boolean"
+    "type": "boolean",
+    # change category to computers (18)
+    "category": 18
 }
 response = requests.get('https://opentdb.com/api.php', params=parameter)
 response.raise_for_status()
