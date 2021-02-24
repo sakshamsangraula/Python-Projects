@@ -4,13 +4,13 @@ COMPANY_NAME = "Tesla Inc"
 STOCK_ENDPOINT = "https://www.alphavantage.co/query"
 NEWS_ENDPOINT = "https://newsapi.org/v2/everything"
 
-STOCK_API_KEY = "APIKEY"
-NEWS_API_KEY = "APIKEY"
+STOCK_API_KEY = "SECRET"
+NEWS_API_KEY = "SECRET"
 PERCENT_THRESHOLD = 5
 
-TWILIO_ACCOUNT_SID = "ACCOUNTSID"
-TWILIO_AUTH_TOKEN = "TWILIOAUTHTOKEN"
-SENDING_PHONE_NUM = "SENDINGPHONENUM"
+TWILIO_ACCOUNT_SID = "SECRET"
+TWILIO_AUTH_TOKEN = "SECRET"
+SENDING_PHONE_NUM = "SECRET"
 went_up = False
 
 import requests
@@ -34,19 +34,15 @@ stock_price_response.raise_for_status()
 stock_price_response = stock_price_response.json()
 daily_data = stock_price_response["Time Series (Daily)"]
 
-# get the exact date of today in the right format
-now = str(dt.datetime.now())
-now_date = now.split(" ")[0]
-print(now_date)
+# use the .items() function to loop over the dictionary
+data_without_dates = [info for (date, info) in daily_data.items()]
 
-now_time = dt.datetime.now()
+yesterday_data = data_without_dates[0]
+yesterday_close_price = float(yesterday_data["4. close"])
+day_before_yesterday = data_without_dates[1]
+day_before_yesterday_close_price = float(day_before_yesterday["4. close"])
 
-yesterday_date = "2021-02-19"
-day_before_yesterday_date = "2021-02-18"
 
-# get the closing price for yesterday and day before yesterday and find the difference
-yesterday_close_price = float(daily_data[yesterday_date]["4. close"])
-day_before_yesterday_close_price = float(daily_data[day_before_yesterday_date]["4. close"])
 
 # if the positive difference between yesterday's and day before yesterday's price is positive or negative 5%
 # meaning if there is a 5% decrease or increase in yesterday's price from day before yesterday then print get news
@@ -54,46 +50,43 @@ if yesterday_close_price > day_before_yesterday_close_price:
     went_up = True
 diff = math.fabs(yesterday_close_price - day_before_yesterday_close_price)
 percent = round(diff/day_before_yesterday_close_price * 100)
-print(day_before_yesterday_close_price)
-print(yesterday_close_price)
-print(diff)
-print(percent)
 
 
 def get_news():
-    parameters = {
+    news_parameters = {
         "apiKey": NEWS_API_KEY,
-        "q": COMPANY_NAME
+        "qInTitle": COMPANY_NAME
     }
-    news_response = requests.get(NEWS_ENDPOINT, params=parameters)
-    news_response.raise_for_status()
-    news_response_json = news_response.json()
-    # get the first three articles and extract the headline and brief from it
-    articles = news_response_json["articles"][:3]
-    headlines = [{f"Headline": f"{article['title']}", "Brief": f"{article['description']}"} for article in articles]
-    # send text after getting the articles
-    send_text(headlines)
-
-def send_text(headlines):
-    account_sid = TWILIO_ACCOUNT_SID
-    auth_token = TWILIO_AUTH_TOKEN
-    client = Client(account_sid, auth_token)
     if went_up:
         percentage_show = f"🔺{percent}%"
     else:
         percentage_show = f"🔻{percent}%"
+    news_response = requests.get(NEWS_ENDPOINT, params=news_parameters)
+    news_response.raise_for_status()
+    news_response_json = news_response.json()
+    # get the first three articles and extract the headline and brief from it
+    articles = news_response_json["articles"][:3]
+    headlines = [ f"{STOCK}: {percentage_show}\nHeadline: {article['title']}\n"
+                  f"Brief: {article['description']}" for article in articles]
+    # send text after getting the articles
+    print(headlines)
+    send_text(headlines)
 
-    message = client.messages \
-        .create(
-        body=f"{STOCK}: {percentage_show}\n"
-             f"Headline: {headlines[0]['Headline']}\n"
-             f"Brief: {headlines[0]['Brief']}",
-        from_= SENDING_PHONE_NUM,
-        to="TOPHONENUM"
-    )
+def send_text(headlines):
 
-if percent >= PERCENT_THRESHOLD:
-   # get the first three article for the company name
+    print(headlines[0])
+    client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
+
+    for headline in headlines:
+        message = client.messages \
+            .create(
+            body= headline,
+            from_= SENDING_PHONE_NUM,
+            to="SECRET"
+        )
+
+if percent > PERCENT_THRESHOLD:
+   # get the first three article for the company name if the percent difference is more than 5
     get_news()
 
 """
