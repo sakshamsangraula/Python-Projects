@@ -4,8 +4,8 @@ import datetime as dt
 import os
 
 # Constants
-APP_ID = os.environ.get("APP_ID_WORKOUT")
-API_KEY = os.environ.get("API_KEY")
+APP_ID = "APP_ID"
+API_KEY = "API_KEY"
 EXERCISE_ENDPOINT = os.environ.get("EXERCISE_ENDPOINT")
 SHEETS_ENDPOINT = os.environ.get("SHEETS_ENDPOINT")
 print(f"app id is {APP_ID} and api key is {API_KEY} and eendpoint is {EXERCISE_ENDPOINT},"
