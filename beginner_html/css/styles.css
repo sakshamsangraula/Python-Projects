@@ -1,0 +1,23 @@
+body{
+  background-color: #EAF6F6;
+}
+
+hr{
+  /* use background color for hr */
+  border-style: none;
+  border-top-style: dotted;
+  border-color: gray;
+  border-width: 5px;
+  /* use percent so it's based on the screen size for whatever screen it is */
+  width: 5%;
+  height: 0px;
+}
+
+h1, h3{
+  color: #66BFBF
+}
+
+img{
+  width: 100px;
+  height: 100px;
+}
