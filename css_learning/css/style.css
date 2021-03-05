@@ -4,29 +4,41 @@ body{
   margin: 0;
   text-align: center;
   font-family: "Merriweather", sans-serif;
+  background-color: powderblue;
+
 }
 
-h1{
-  margin: 0
+.about h1{
+  margin: 0;
+  margin-top: 30px;
+  font-size: 3.5rem;
+  color: #66BFBF;
+}
+
+.about h2{
+  color: #66BFBF;
+  font-weight: normal;
+}
+
+
+h3, a{
+  color: #11999E;
+}
+.about p{
+  font-size: 2.5rem;
 }
 
 .topcontainer{
-  background-color: powderblue;
-  height: 650px;
   position: relative;
   padding-top: 100px;
 }
 
 .middlecontainer{
-  height: 200px;
-  width: 200px;
-  background-color: red;
+  
 }
 
 .bottomcontainer{
-  height: 200px;
-  width: 200px;
-  background-color: blue;
+  
 }
 
 .top-cloud{
@@ -43,4 +55,39 @@ h1{
 
 .about{
   padding-top: 100px;
+}
+
+img{
+  padding-bottom: 40px;
+}
+
+.skill-row{
+  width: 50%;
+  margin: 100px auto;
+  text-align: left;
+}
+
+.skill-row p{
+  line-height: 2;
+}
+
+.computer-img{
+  width: 25%;
+  float: left;
+  margin-right: 30px;
+  margin-bottom: 10px;
+}
+.chilli-img{
+  width: 25%;
+  float: right;
+  margin-left: 30px;
+  margin-bottom: 10px;
+}
+
+.computer-description{
+  clear: left;
+}
+
+.chilli-description{
+  clear: right;
 }
